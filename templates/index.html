@@ -13,6 +13,7 @@
         body {
             margin: 0;
             height: 100vh;
+            overflow-x: hidden; /* 🔥 FIX */
         }
 
         /* 🔥 MAIN LAYOUT */
@@ -22,7 +23,7 @@
             width: 100%;
         }
 
-        /* 🔥 LEFT IMAGE ONLY (NO GRADIENT) */
+        /* 🔥 LEFT IMAGE */
         .left {
             flex: 1.2;
             background-image: url("{{ url_for('static', filename='images/bg2.png') }}");
@@ -37,7 +38,7 @@
             background: rgba(0, 0, 0, 0.15);
         }
 
-        /* 🔥 RIGHT FORM AREA (SOLID COLOR) */
+        /* 🔥 RIGHT FORM AREA */
         .right {
             flex: 1;
             background: #f4f6fb;
@@ -49,7 +50,8 @@
         /* 🔥 FORM CONTAINER */
         .container {
             background: #ffffff;
-            width: 420px;
+            width: 100%;
+            max-width: 420px; /* 🔥 FIX */
             padding: 35px;
             border-radius: 15px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.25);
@@ -67,7 +69,7 @@
             }
         }
 
-        /* 🔥 TITLE ALIGNMENT FIX */
+        /* 🔥 TITLE ALIGNMENT */
         .title {
             display: flex;
             align-items: center;
@@ -84,7 +86,6 @@
 
         .icon {
             font-size: 28px;
-            line-height: 1;
         }
 
         p {
@@ -109,59 +110,53 @@
             border-color: #667eea;
         }
 
-button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 12px;
-    border: none;
-    border-radius: 10px;
-    background: #667eea;
-    color: white;
-    font-size: 16px;
-    font-weight: bold;
-    cursor: pointer;
-    position: relative;
-    overflow: hidden;
-    transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
+        /* 🔥 SHINY BUTTON */
+        button {
+            width: 100%;
+            margin-top: 15px;
+            padding: 12px;
+            border: none;
+            border-radius: 10px;
+            background: #667eea;
+            color: white;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
 
-/* ✨ SHINE EFFECT */
-button::before {
-    content: "";
-    position: absolute;
-    top: 0;
-    left: -75%;
-    width: 50%;
-    height: 100%;
-    background: linear-gradient(
-        120deg,
-        transparent,
-        rgba(255, 255, 255, 0.5),
-        transparent
-    );
-    animation: shine 2.5s infinite;
-}
+        button::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: -75%;
+            width: 50%;
+            height: 100%;
+            background: linear-gradient(
+                120deg,
+                transparent,
+                rgba(255, 255, 255, 0.5),
+                transparent
+            );
+            animation: shine 2.5s infinite;
+        }
 
-@keyframes shine {
-    0% {
-        left: -75%;
-    }
-    100% {
-        left: 125%;
-    }
-}
+        @keyframes shine {
+            0% { left: -75%; }
+            100% { left: 125%; }
+        }
 
-/* 🔥 HOVER GLOW */
-button:hover {
-    transform: scale(1.05);
-    box-shadow: 0 0 15px rgba(102, 126, 234, 0.8),
-                0 0 30px rgba(102, 126, 234, 0.5);
-}
+        button:hover {
+            transform: scale(1.05);
+            box-shadow: 0 0 15px rgba(102,126,234,0.8),
+                        0 0 30px rgba(102,126,234,0.5);
+        }
 
-/* ⚡ CLICK FEEDBACK */
-button:active {
-    transform: scale(0.97);
-}
+        button:active {
+            transform: scale(0.97);
+        }
 
         /* 🔥 RESULT */
         .result {
@@ -175,14 +170,8 @@ button:active {
         }
 
         @keyframes pop {
-            from {
-                transform: scale(0.9);
-                opacity: 0;
-            }
-            to {
-                transform: scale(1);
-                opacity: 1;
-            }
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
         }
 
         .spam {
@@ -203,24 +192,57 @@ button:active {
         }
 
         /* 🔥 MOBILE RESPONSIVE */
-        @media (max-width: 900px) {
+        @media (max-width: 768px) {
+
             .main {
                 flex-direction: column;
-            }
-
-            .divider {
-                height: 4px;
-                width: 100%;
+                height: auto;
             }
 
             .left {
-                height: 40vh;
+                height: 30vh;
+                background-size: contain;
+            }
+
+            .divider {
+                width: 100%;
+                height: 3px;
             }
 
             .right {
-                height: 60vh;
+                padding: 20px 10px;
+            }
+
+            .container {
+                padding: 25px;
+                margin: 10px auto;
+            }
+
+            .title h1 {
+                font-size: 22px;
+            }
+
+            .icon {
+                font-size: 24px;
+            }
+
+            textarea {
+                height: 100px;
+            }
+
+            button {
+                font-size: 15px;
+                padding: 11px;
             }
         }
+
+        /* 🔥 VERY SMALL PHONES */
+        @media (max-width: 480px) {
+            .left {
+                display: none;
+            }
+        }
+
     </style>
 </head>
 
@@ -228,17 +250,13 @@ button:active {
 
 <div class="main">
 
-    <!-- LEFT IMAGE -->
     <div class="left"></div>
 
-    <!-- MIDDLE BORDER -->
     <div class="divider"></div>
 
-    <!-- RIGHT FORM -->
     <div class="right">
         <div class="container">
 
-            <!-- 🔥 FIXED TITLE -->
             <div class="title">
                 <span class="icon">📧</span>
                 <h1>Spam Email Detection</h1>
@@ -259,9 +277,8 @@ button:active {
                 {% endif %}
             {% endif %}
 
-            <footer>
-                Machine Learning Project
-            </footer>
+            <footer>Machine Learning Project</footer>
+
         </div>
     </div>
 
