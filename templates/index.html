@@ -203,7 +203,11 @@
                 height: 30vh;
                 background-size: contain;
             }
-
+            .left {
+    background-repeat: no-repeat;
+    background-position: center;
+                  }
+ 
             .divider {
                 width: 100%;
                 height: 3px;
@@ -242,6 +246,40 @@
                 display: none;
             }
         }
+
+        /* 🔥 IMAGE RESPONSIVENESS FIX */
+
+/* Desktop & large screens */
+@media (min-width: 1024px) {
+    .left {
+        background-size: cover;
+    }
+}
+
+/* Tablets */
+@media (max-width: 1023px) and (min-width: 769px) {
+    .left {
+        background-size: contain;
+    }
+}
+
+/* Mobile phones */
+@media (max-width: 768px) {
+    .left {
+        height: 30vh;
+        background-size: contain;
+        background-position: center;
+    }
+}
+
+/* Very small phones */
+@media (max-width: 480px) {
+    .left {
+        height: 25vh;
+        background-size: contain;
+    }
+}
+
 
     </style>
 </head>
